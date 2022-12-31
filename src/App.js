@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
 function App() {
+  const [messages, setMessages] = React.useState([])
+  React.useEffect(()=> {
+    fetch('http://localhost:5000/')
+      .then((response)=> response.json())
+      .then((data) => setMessages(data))
+  })
+  console.log(messages)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Messages</h1>
+      {messages.map((message) => {
+       return <h2>{message}</h2>
+      }) }
     </div>
   );
 }
 
 export default App;
+
+
