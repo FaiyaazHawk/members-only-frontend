@@ -1,19 +1,23 @@
 import React from "react";
 
+import Message from "./components/Message";
+
 function App() {
   const [messages, setMessages] = React.useState([])
   React.useEffect(()=> {
-    fetch('http://localhost:5000/')
+    fetch('http://localhost:5000/messages')
       .then((response)=> response.json())
       .then((data) => setMessages(data))
+  }, [])
+
+  const messageElements = messages.map((message) => {
+    return <Message key={message._id} value={message}></Message>
   })
-  console.log(messages)
+
   return (
     <div className="App">
       <h1>Messages</h1>
-      {messages.map((message) => {
-       return <h2>{message}</h2>
-      }) }
+      {messageElements}
     </div>
   );
 }
